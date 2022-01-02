@@ -58,4 +58,4 @@ A perhaps less optimal alternative would be to use my Raspberry Pi for casting, 
 
 ### The Bixby button
 
-My phone is one of those equipped with an extra button, originally assigned to Samsung's pesky Bixby assistant. I used to reassign it however I wanted with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but now I can't seem to get it to detect this button, and the shell scripts that should be installed with the app (`start_full_remap.sh` etc) don't exist?! Don't know if I will get this fixed.
+My phone is one of those equipped with an extra button, originally assigned to Samsung's pesky Bixby assistant. I used to reassign it however I wanted (short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but now I can't seem to get it to detect this button, and the shell scripts that should be installed with the app (`start_full_remap.sh` etc) don't exist?! Don't know if I will get this fixed.
