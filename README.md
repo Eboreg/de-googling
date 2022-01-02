@@ -30,6 +30,12 @@ After this, I could actually boot into TWRP and get the new OS installed. I don'
 * Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
 * Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest)
 
+### Play Store
+
+First choice for us RMS wannabes is of course [F-Droid](https://f-droid.org/).
+
+For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/).
+
 ### Calendar
 
 I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [/e/'s preinstalled fork of the Etar calendar app](https://gitlab.e.foundation/e/apps/calendar). 
