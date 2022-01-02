@@ -32,7 +32,7 @@ After this, I could actually boot into TWRP and get the new OS installed. I don'
 
 ### Play Store
 
-First choice for us RMS wannabes is of course [F-Droid](https://f-droid.org/).
+First choice for us [RMS](https://stallman.org/) wannabes is of course [F-Droid](https://f-droid.org/).
 
 For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/).
 
