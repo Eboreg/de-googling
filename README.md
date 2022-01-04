@@ -48,6 +48,12 @@ I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I hav
 
 The downside of Nextcloud is of course that you have to host your files yourself, or rely on there existing a Nextcloud integration with your cloud storage provider of choice (and the supply of such integrations honestly leaves a lot to be desired). So, as I neither want to invest in a NAS (plus the fact that backups should really be hosted off-site), nor want to settle for Dropbox or Onedrive, I will probably have to outsource the "file storage" part of my cloud solution to [Mega](https://mega.io/), who offer end-to-end encryption as well as native Linux (including Raspbian!) clients. Perhaps there is some convoluted way of integrating this into Nextcloud, but it's not a big deal. I've had good experiences with Mega in the past and will probably upgrade to a paid subscription.
 
+### Software keyboard
+
+This is probably where it makes the most sense to use open source software, since this app literally sees everything you type. Yet, I used Swiftkey before, because it's simply so damn good. I tried a bunch of FOSS keyboards, but all of them lack two very simple features of Swiftkey: the ability to delete entire words by holding down the delete key, and the automatic adding of a space after punctuation marks. I will go for [Openboard](https://f-droid.org/en/packages/org.dslul.openboard.inputmethod.latin/) for now, although [Florisboard](https://f-droid.org/en/packages/dev.patrickgold.florisboard/) shows great promise.
+
+The Openboard versions in the app stores don't have a Swedish wordlist, though. To get that, you either need to build the app from [source](https://github.com/dslul/openboard) or trust one of the [user built packages](https://github.com/dslul/openboard/issues/454).
+
 ## Still to be solved
 
 ### Chromecast
