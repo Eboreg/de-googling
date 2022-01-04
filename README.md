@@ -59,3 +59,7 @@ A perhaps less optimal alternative would be to use my Raspberry Pi for casting, 
 ### The Bixby button
 
 My phone is one of those equipped with an extra button, originally assigned to Samsung's pesky Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but now I can't seem to get it to detect this button, and the shell scripts that should be installed with the app (`start_full_remap.sh` etc) don't exist?! Don't know if I will get this fixed.
+
+## Non-phone de-googling
+
+For those instances where you need to use Google services on your computer, I can recommend the add-ons [Firefox Multi-Account Containers](https://addons.mozilla.org/firefox/addon/multi-account-containers/) and [Google Container](https://addons.mozilla.org/firefox/addon/google-container/), which will at least keep your Google identity from leaking all over the place (provided you clear your cookies after installing them, of course).
