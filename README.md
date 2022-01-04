@@ -8,7 +8,7 @@ Midway through, I decided to document the project in this manner, both for mysel
 
 I use a Samsung Galaxy S9 (codename `starlte`). My most used Google apps on it were probably Keep, Youtube, and Drive. I host my own email since many years back, but I used the Gmail app to access it. I used Google Calendar, albeit with another app as frontend. And yes, I also synced my phone's photos with Google Photos. :-/
 
-When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use Firefox and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos).
+When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use Firefox for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: Google's image search is admittedly better, and I can't seem to get rid of all those search results in Chinese).
 
 ## Choosing a distribution
 
@@ -16,7 +16,7 @@ My first choice was [LineageOS](https://lineageos.org/). However, I soon learned
 
 ## Installing the OS
 
-I basically followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/), with one exception; instead of the `no-verity-encrypt` variant linked, I ended up using the one described [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/). I don't exactly remember why, but I guess the first one didn't work for some reason. Perhaps I was doing it wrong.
+I basically followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)), with one exception; instead of the `no-verity-encrypt` variant linked, I ended up using the one described [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/). I don't exactly remember why, but I guess the first one didn't work for some reason. Perhaps I was doing it wrong.
 
 Going forward after installing [TWRP](https://eu.dl.twrp.me/starlte/) turned out to be a hassle. I couldn't seem to get the phone to shut down or boot into recovery from download mode; holding down `power + volume down` (or if it was `up`) would just reboot it normally, which overwrote TWRP and rendered the whole exercise pointless. After many attempts, it turned out it would actually shut down if I did this with the USB cable still attached!
 
