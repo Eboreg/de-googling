@@ -40,7 +40,7 @@ Rename `Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip` to `Disable_Dm-Verity_For
 
 Rename `Magisk-v24.1.apk` to `Magisk-v24.1.zip`.
 
-Boot to download mode (hold down `Volume down` + `Bixby` + `Power`).
+Boot to download mode (hold down `Volume down` + `Bixby` + `Power`). Run:
 
 ```shell
 heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
@@ -56,7 +56,7 @@ Immediately when the screen turns black: boot to recovery (`Volume up` + `Bixby`
 
 Now we're in TWRP. Do `Wipe > Format Data > type "yes"`. Back to main menu, reboot to recovery again.
 
-Do:
+Run:
 
 ```shell
 adb shell "twrp mount system"
