@@ -153,7 +153,9 @@ script
 end script
 ```
 
-Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me.
+Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me:
+
+![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
 ### The Bixby button
 
