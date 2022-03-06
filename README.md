@@ -16,11 +16,80 @@ My first choice was [LineageOS](https://lineageos.org/). However, I soon learned
 
 ## Installing the OS
 
-I basically followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)), with one exception; instead of the `no-verity-encrypt` variant linked, I ended up using the one described [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/). I don't exactly remember why, but I guess the first one didn't work for some reason. Perhaps I was doing it wrong.
+### Easy install
 
-Going forward after installing [TWRP](https://eu.dl.twrp.me/starlte/) turned out to be a hassle. I couldn't seem to get the phone to shut down or boot into recovery from download mode; holding down `power + volume down` (or if it was `up`) would just reboot it normally, which overwrote TWRP and rendered the whole exercise pointless. After many attempts, it turned out it would actually shut down if I did this with the USB cable still attached!
+I found that the /e/ "easy installer" software actually worked like a charm with my device; check [here](https://doc.e.foundation/devices) to find out if it's available for yours. Only problem is it insists on encrypting your Data partition, which (as I understand it) makes it impossible for you to root your phone. But that can be fixed afterwards; more on that later.
 
-After this, I could actually boot into TWRP and get the new OS installed. I don't remember any major obstacles during this process; there probably were some, but none that a little stubbornness couldn't fix.
+### Less easy install
+
+I also played around quite a bit with manuall installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process ultimately landed upon:
+
+Install [Heimdall](https://doc.e.foundation/support-topics/install-heimdall) and [adb](https://developer.android.com/studio/command-line/adb).
+
+Download:
+
+* Custom recovery [TWRP 3.2.3 for starlte](https://images.ecloud.global/stable/twrp/starlte/twrp-3.2.3-0-starlte.img) - find a variant for your device [here](https://twrp.me/Devices/). The reason I didn't go for a later version is it resulted in the error "failed to mount /odm" later on, but your mileage may vary.
+* Ramdisk modification stuff to remove forceful encryption and other things: [Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip](https://zackptg5.com/downloads/archive/Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip)
+* Vendor stuff: [VENDOR-27_ARI9.zip](https://images.ecloud.global/stable/vendors/VENDOR-27_ARI9.zip) (specific to my phone model)
+* [Latest /e/ image ZIP archive](https://images.ecloud.global/stable/starlte/e-latest-starlte.zip) for my device; find yours [here](https://doc.e.foundation/devices)
+* [Magisk APK](https://github.com/topjohnwu/Magisk/releases/)
+
+Rename `Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip` to `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip`, because the filename holds significance and this disables disk quota. I honestly don't remember why I decided on this and if it's necessary in any way, but you can read more about it [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/).
+
+(Also, the "official" guide instructs you to use [no-verity-opt-encrypt-samsung-1.0.zip](https://images.ecloud.global/stable/patch/no-verity-opt-encrypt-samsung-1.0.zip) instead. I think this also worked for me, at least in combination with TWRP 3.2.3 (i.e. not the latest version), but that's just not the combination I ended up with.)
+
+Rename `Magisk-v24.1.apk` to `Magisk-v24.1.zip`.
+
+Boot to download mode (hold down `Volume down` + `Bixby` + `Power`).
+
+```shell
+heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
+```
+
+Do not detach the USB cable before rebooting now, regardless of that the instructions say. I had some trouble getting it to reboot to recovery at this point; it would insist on rebooting normally, which would overwrite TWRP and render the whole exercise pointless. After some attempts, I discovered it actually worked with the USB cable still attached for some reason.
+
+Power off device (`Volume down` + `Power`).
+
+Immediately when the screen turns black: boot to recovery (`Volume up` + `Bixby` + `Power`).
+
+**IMPORTANT: This is the point of no return. The actions hereafter will wipe all data from your phone.**
+
+Now we're in TWRP. Do `Wipe > Format Data > type "yes"`. Back to main menu, reboot to recovery again.
+
+Do:
+
+```shell
+adb shell "twrp mount system"
+adb shell "twrp wipe system"
+adb shell "twrp wipe cache"
+adb push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard
+adb shell twrp install /sdcard/Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip
+adb push VENDOR-27_ARI9.zip /sdcard
+adb shell twrp install /sdcard/VENDOR-27_ARI9.zip
+adb push e-0.20-o-20220118158074-stable-starlte.zip /sdcard
+adb shell twrp install /sdcard/e-0.20-o-20220118158074-stable-starlte.zip
+adb push Magisk-v24.1.zip /sdcard
+adb shell twrp install /sdcard/Magisk-v24.1.zip
+```
+
+Then, in TWRP: `Wipe > Advanced wipe > Data > Repair or change file system > Resize file system`.
+
+Still in TWRP, choose to reboot normally. It will prompt you to install the TWRP app; however, every time I have agreed to do this, the system has refused to start afterwards, so I don't let it do that. But again, your mileage may vary.
+
+Reboot, and the new OS plus Magisk should now be installed!
+
+## Updating the OS
+
+/e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, do this:
+
+1. Boot to recovery (TWRP)
+2. Do a backup of the Data partition, preferably to external SD card
+3. Reboot and let it upgrade and encrypt
+4. Boot to TWRP again
+5. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above
+6. Restore backup of Data
+7. Reboot
+8. You're now updated and rooted! \o/
 
 ## Replacing Google
 
@@ -50,21 +119,68 @@ The downside of Nextcloud is of course that you have to host your files yourself
 
 ### Software keyboard
 
-This is probably where it makes the most sense to use open source software, since this app literally sees everything you type. Yet, I used Swiftkey before, because it's simply so damn good. I tried a bunch of FOSS keyboards, but all of them lack two very simple features of Swiftkey: the ability to delete entire words by holding down the delete key, and the automatic adding of a space after punctuation marks. I will go for [Openboard](https://f-droid.org/en/packages/org.dslul.openboard.inputmethod.latin/) for now, although [Florisboard](https://f-droid.org/en/packages/dev.patrickgold.florisboard/) shows great promise.
+This is probably where it makes the most sense to use open source software, since this app literally sees everything you type. Here is also where I ended up sinning, as Swiftkey is simply too damn good for me to switch, and none of the FOSS keyboards were to my satisfaction. But I did try!
+
+[Openboard](https://f-droid.org/en/packages/org.dslul.openboard.inputmethod.latin/) looks to me like the best alternative, although [Florisboard](https://f-droid.org/en/packages/dev.patrickgold.florisboard/) shows great promise.
 
 The Openboard versions in the app stores don't have a Swedish wordlist, though. To get that, you either need to build the app from [source](https://github.com/dslul/openboard) or trust one of the [user built packages](https://github.com/dslul/openboard/issues/454).
 
-## Still to be solved
-
 ### Chromecast
 
-I regularily use my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). One alternative seems to be [Miracast](https://en.wikipedia.org/wiki/Miracast). I'll probably buy a cheap gizmo and try it out.
+I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [XBian](https://xbian.org/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation.
 
-A perhaps less optimal alternative would be to use my Raspberry Pi for casting, by way of [`omxiv` and Raspicast](https://thepi.io/how-to-use-your-raspberry-pi-as-a-chromecast-alternative/). Less optimal because it seems to severely limit the number of apps I can stream from (not that I know that Miracast doesn't also do this), and because my poor Pi is overworked as it is.
+In order to run Spotify on this Raspberry Pi, use [Raspotify](https://dtcooper.github.io/raspotify/), which is a thin wrapper over [Librespot](https://github.com/librespot-org/librespot):
+
+```shell
+sudo apt install curl apt-transport-https git python
+curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
+```
+
+Now edit `/etc/raspotify/conf` with your account credentials and other settings to your liking. Then, to make librespot run as a daemon on startup, copy this to `/etc/init/raspotify.conf`:
+
+```
+description "Daemonized librespot"
+
+start on net-device-up
+stop on runlevel [!2345]
+
+respawn
+
+script
+	set -a
+	. /etc/raspotify/conf
+	exec /usr/bin/librespot
+end script
+```
+
+Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me.
 
 ### The Bixby button
 
-My phone is one of those equipped with an extra button, originally assigned to Samsung's pesky Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but now I can't seem to get it to detect this button, and the shell scripts that should be installed with the app (`start_full_remap.sh` etc) don't exist?! Don't know if I will get this fixed.
+My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
+
+```shell
+#!/bin/sh
+
+# N.B: DON'T USE THIS VERBATIM ON YOUR DEVICE! ONLY FOR INSPIRATION.
+
+adb root
+adb remount
+adb shell "cd /system/usr/keylayout && cp gpio_keys.kl gpio_keys.kl.backup"
+adb pull /system/usr/keylayout/gpio_keys.kl ./
+grep -q '^key 703' gpio_keys.kl
+if [ $? -eq 0 ]; then
+    # key found
+    sed -i 's/^key 703.*$/key 703 MEDIA_PLAY_PAUSE/' gpio_keys.kl
+else
+    echo 'key 703 MEDIA_PLAY_PAUSE' >>gpio_keys.kl 
+fi
+adb push gpio_keys.kl /system/usr/keylayout/
+# Should not be needed, but just for safety:
+adb shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644 gpio_keys.kl"
+```
+
+Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
 
 ## Non-phone de-googling
 
