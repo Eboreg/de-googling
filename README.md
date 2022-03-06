@@ -22,9 +22,9 @@ I found that the /e/ "easy installer" software actually worked like a charm with
 
 ### Less easy install
 
-I also played around quite a bit with manuall installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process ultimately landed upon:
+I also played around quite a bit with manuall installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process I ultimately landed upon:
 
-Install [Heimdall](https://doc.e.foundation/support-topics/install-heimdall) and [adb](https://developer.android.com/studio/command-line/adb).
+Install [Heimdall](https://doc.e.foundation/support-topics/install-heimdall) (specifically for Samsung phones) and [adb](https://developer.android.com/studio/command-line/adb).
 
 Download:
 
