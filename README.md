@@ -12,7 +12,7 @@ When backing up my computers, I also used Drive for storage; however, the files 
 
 ## Choosing a distribution
 
-My first choice was [LineageOS](https://lineageos.org/). However, I soon learned I would need [MicroG](https://microg.org/) in order to receive push notifications and such stuff ... I think. My understanding of this is a bit patchy. Anyway, vanilla LineageOS does not include MicroG, the [LineageOS for MicroG](https://lineage.microg.org/) project don't have any builds for my phone (also, their site was down at the time), and I didn't want to make the installation more of a hassle than necessary (I don't really have a backup phone should I brick my current one). Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/).
+My first choice was [LineageOS](https://lineageos.org/). However, I soon learned I would need [MicroG](https://microg.org/) in order to receive push notifications and such stuff ... I think. My understanding of this is a bit patchy. Anyway, vanilla LineageOS does not include MicroG, the [LineageOS for MicroG](https://lineage.microg.org/) project doesn't have any builds for my phone (also, their site was down at the time), and I didn't want to make the installation more of a hassle than necessary (I don't really have a backup phone should I brick my current one). Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/).
 
 ## Installing the OS
 
@@ -22,7 +22,7 @@ I found that the /e/ "easy installer" software actually worked like a charm with
 
 ### Less easy install
 
-I also played around quite a bit with manuall installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process I ultimately landed upon:
+I also played around quite a bit with manual installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process I ultimately landed upon:
 
 Install [Heimdall](https://doc.e.foundation/support-topics/install-heimdall) (specifically for Samsung phones) and [adb](https://developer.android.com/studio/command-line/adb).
 
