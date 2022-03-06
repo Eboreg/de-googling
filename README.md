@@ -95,7 +95,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 ### The simple stuff
 
-* Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address except for junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
+* Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
 * Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
 * Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest)
 
@@ -103,7 +103,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 First choice for us [RMS](https://stallman.org/) wannabes is of course [F-Droid](https://f-droid.org/).
 
-For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/).
+For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/) or [Aptoide](https://en.aptoide.com/).
 
 ### Calendar
 
