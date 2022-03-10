@@ -182,6 +182,7 @@ fi
 adb push gpio_keys.kl /system/usr/keylayout/
 # Should not be needed, but just for safety:
 adb shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644 gpio_keys.kl"
+# Now reboot the phone.
 ```
 
 Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
