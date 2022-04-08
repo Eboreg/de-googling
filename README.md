@@ -84,15 +84,17 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 /e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, do this:
 
-1. Boot to recovery (TWRP)
-2. Do a backup of the Data partition, preferably to external SD card
-3. Reboot and let it upgrade and encrypt
-4. Boot to TWRP again
-5. Wipe Data partition, possibly you need to reboot once more
-6. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above (`adb push`, `adb shell twrp install`)
-7. Restore backup of Data
-8. Reboot
-9. You're now updated and rooted! \o/
+1. Manually back up any images, documents, etc that you want to keep
+2. Boot to recovery (TWRP)
+3. Do a backup of the Data partition, preferably to external SD card
+4. Reboot and let it upgrade and encrypt
+5. Boot to TWRP again
+6. Wipe Data partition, possibly you need to reboot once more
+7. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above (`adb push`, `adb shell twrp install`)
+8. Restore backup of Data
+9. Reboot
+10. Restore backup from (1)
+11. You're now updated and rooted! \o/
 
 ## Replacing Google
 
