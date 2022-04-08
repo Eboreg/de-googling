@@ -88,10 +88,11 @@ Reboot, and the new OS plus Magisk should now be installed!
 2. Do a backup of the Data partition, preferably to external SD card
 3. Reboot and let it upgrade and encrypt
 4. Boot to TWRP again
-5. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above
-6. Restore backup of Data
-7. Reboot
-8. You're now updated and rooted! \o/
+5. Wipe Data partition, possibly you need to reboot once more
+6. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above (`adb push`, `adb shell twrp install`)
+7. Restore backup of Data
+8. Reboot
+9. You're now updated and rooted! \o/
 
 ## Replacing Google
 
