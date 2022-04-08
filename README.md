@@ -40,7 +40,7 @@ Rename `Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip` to `Disable_Dm-Verity_For
 
 (Also, the "official" guide instructs you to use [no-verity-opt-encrypt-samsung-1.0.zip](https://images.ecloud.global/stable/patch/no-verity-opt-encrypt-samsung-1.0.zip) instead. I think this also worked for me, at least in combination with TWRP 3.2.3 (i.e. not the latest version), but that's just not the combination I ended up with.)
 
-Rename `Magisk-v24.1.apk` to `Magisk-v24.1.zip`.
+Rename `Magisk-vXX.apk` to `Magisk-vXX.zip`.
 
 Boot to download mode (hold down `Volume down` + `Bixby` + `Power`). Run:
 
