@@ -48,6 +48,8 @@ Boot to download mode (hold down `Volume down` + `Bixby` + `Power`). Run:
 heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
 ```
 
+(You may need to do this as root.)
+
 Do not detach the USB cable before rebooting now, regardless of that the instructions say. I had some trouble getting it to reboot to recovery at this point; it would insist on rebooting normally, which would overwrite TWRP and render the whole exercise pointless. After some attempts, I discovered it actually worked with the USB cable still attached for some reason.
 
 Power off device (`Volume down` + `Power`).
@@ -58,7 +60,7 @@ Immediately when the screen turns black: boot to recovery (`Volume up` + `Bixby`
 
 Now we're in TWRP. Do `Wipe > Format Data > type "yes"`. Back to main menu, reboot to recovery again.
 
-Run:
+Run (with the correct filenames of course):
 
 ```shell
 adb shell "twrp mount system"
