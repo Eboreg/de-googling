@@ -90,7 +90,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 2. Boot to recovery (TWRP)
 3. Do a backup of the Data partition, preferably to external SD card
 4. Reboot and let it upgrade and encrypt
-5. Boot to TWRP again
+5. Reboot to recovery; /e/ will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP as per above (using Heimdall), and boot to recovery again
 6. Wipe Data partition, possibly you need to reboot once more
 7. Re-install Magisk and `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` (in that order) as per above (`adb push`, `adb shell twrp install`)
 8. Restore backup of Data
