@@ -119,57 +119,6 @@ Reboot, and the new OS plus Magisk should now be installed!
 11. Restore backup from (1)
 12. You're now updated and rooted! \o/
 
-## Various tips & fixes
-
-### Starting a root shell
-
-This should normally be pretty straight forward:
-
-```shell
-adb -d kill-server
-adb -d root
-adb -d shell
-```
-
-(I add the `-d` to make it work on the USB connected device, as I also have an emulated phone created in Android Studio.)
-
-However, this normally results in this happening for me:
-
-```shell
-klaatu@jacob:~/e$ adb -d root
-* daemon not running; starting now at tcp:5037
-* daemon started successfully
-restarting adbd as root
-timeout expired while waiting for device
-```
-
-Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
-
-### Uninstalling the TWRP app
-
-Letting TWRP install its "official TWRP app" makes my phone refuse to boot for some reason. If this is the case for you, just follow these instructions for a really crude uninstall:
-
-1. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
-2. Mount the required partitions:
-   1. Press _Mount_
-   2. Press _Select Storage_ -> _Internal Storage_ -> _OK_
-   3. Select at least the _System_ and _Data_ partitions
-   4. Make sure _Mount system partition read-only_ is deselected
-3. Start a root shell using one of these methods:
-   1. On a computer connected via USB, do this to get a root shell:
-      ```shell
-      adb kill-shell
-      adb root
-      adb shell
-      ```
-   2. From the TWRP main menu, select `Advanced`, then `Terminal`
-4. Run
-   ```shell
-   find / -name '*twrpapp*' -print -exec rm {} \; 2>/dev/null
-   ```
-
-The TWRP app should now be removed and the system able to start as usual. This solutions was found [here](https://android.stackexchange.com/a/197178).
-
 ## Replacing Google
 
 ### The simple stuff
@@ -238,7 +187,7 @@ script
 end script
 ```
 
-Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me:
+Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me (except for [one issue](#raspotify-not-working) that showed up in summer 2022):
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
@@ -270,8 +219,71 @@ adb shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644
 
 Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
 
+
 ## Non-phone de-googling
 
 For those instances where you need to use Google services on your computer, I can recommend the add-ons [Firefox Multi-Account Containers](https://addons.mozilla.org/firefox/addon/multi-account-containers/) and [Google Container](https://addons.mozilla.org/firefox/addon/google-container/), which will at least keep your Google identity from leaking all over the place.
 
 If Google requires two-factor authentication, you can select the option "Get a verification code from the **Google Authenticator** app", but use an open source TOTP app instead, like the excellent [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/).
+
+
+## Various tips & fixes
+
+### Starting a root shell
+
+This should normally be pretty straight forward:
+
+```shell
+adb -d kill-server
+adb -d root
+adb -d shell
+```
+
+(I add the `-d` to make it work on the USB connected device, as I also have an emulated phone created in Android Studio.)
+
+However, this normally results in this happening for me:
+
+```shell
+klaatu@jacob:~/e$ adb -d root
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+restarting adbd as root
+timeout expired while waiting for device
+```
+
+Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
+
+### Uninstalling the TWRP app
+
+Letting TWRP install its "official TWRP app" makes my phone refuse to boot for some reason. If this is the case for you, just follow these instructions for a really crude uninstall:
+
+1. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
+2. Mount the required partitions:
+   1. Press _Mount_
+   2. Press _Select Storage_ -> _Internal Storage_ -> _OK_
+   3. Select at least the _System_ and _Data_ partitions
+   4. Make sure _Mount system partition read-only_ is deselected
+3. Start a root shell using one of these methods:
+   1. On a computer connected via USB, do this to get a root shell:
+      ```shell
+      adb kill-shell
+      adb root
+      adb shell
+      ```
+   2. From the TWRP main menu, select `Advanced`, then `Terminal`
+4. Run
+   ```shell
+   find / -name '*twrpapp*' -print -exec rm {} \; 2>/dev/null
+   ```
+
+The TWRP app should now be removed and the system able to start as usual. This solutions was found [here](https://android.stackexchange.com/a/197178).
+
+### Raspotify not working
+
+In July 2022, my [Raspotify installation](#chromecast) suddenly refused to play anything; librespot panicked and complained about "channel closed". I found [this issue](https://github.com/librespot-org/librespot/issues/972), which suggested there is some problem with one of Spotify's access points. So I added this to `/etc/hosts` on the Pi:
+
+```
+104.199.65.124  ap-gew4.spotify.com
+```
+
+... then restarted the Raspotify daemon, and it works again.
