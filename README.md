@@ -45,10 +45,10 @@ Rename `Magisk-vXX.apk` to `Magisk-vXX.zip`.
 Boot to download mode (hold down `Volume down` + `Bixby` + `Power`). Run:
 
 ```shell
-heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
+sudo heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
 ```
 
-(You may need to do this as root.)
+(I don't know if it's always necessary to do this as root, but it was for me.)
 
 Do not detach the USB cable before rebooting now, regardless of that the instructions say. I had some trouble getting it to reboot to recovery at this point; it would insist on rebooting normally, which would overwrite TWRP and render the whole exercise pointless. After some attempts, I discovered it actually worked with the USB cable still attached for some reason.
 
@@ -76,9 +76,11 @@ adb push Magisk-v24.1.zip /sdcard
 adb shell twrp install /sdcard/Magisk-v24.1.zip
 ```
 
+(The `adb shell twrp install` commands may also be done directly in TWRP, by selecting _Install_ from the main menu, saving you some tedious copy-pasting of filenames.)
+
 Then, in TWRP: `Wipe > Advanced wipe > Data > Repair or change file system > Resize file system`.
 
-Still in TWRP, choose to reboot normally. It will prompt you to install the TWRP app; however, every time I have agreed to do this, the system has refused to start afterwards, so I don't let it do that. But again, your mileage may vary.
+Still in TWRP, choose to reboot normally. It will prompt you to install the TWRP app; however, every time I have agreed to do this, the system has refused to start afterwards, so I don't let it do that. But again, your mileage may vary. And if you end up with a non-booting phone after letting it install this app, just look [here](#uninstalling-the-twrp-app).
 
 Reboot, and the new OS plus Magisk should now be installed!
 
@@ -86,18 +88,85 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 /e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, do this:
 
-1. Manually back up any images, documents, etc that you want to keep (I prefer to do this by `adb shell`:ing into the device and adding them to a ZIP archive on the SD card, as this is probably the fastest and most reliable method)
-2. Boot to recovery (TWRP)
+1. Manually back up any images, documents, etc that you want to keep. Here is my preferred method of doing this (which, of course, requires an installed SD card with sufficient free space):
+   1. On a computer connected via USB, [start a root shell](#starting-a-root-shell)
+   2. Locate the root directory of your SD card; for me, it's at `/storage/0000-0000/`
+   3. Navigate to the root directory of your user files; it will probably be in `/storage/self/primary/`
+   4. Just zip the stuff you want to save, something like:
+      ```shell
+      zip -r /storage/0000-0000/my_stuff.zip Documents/ Music/ DCIM/
+      ```
+      N.B. Don't include the _Android_ directory.
+2. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
 3. Do a backup of the Data partition, preferably to external SD card
 4. Reboot and let it upgrade and encrypt
-5. Reboot to recovery; /e/ will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP as per above (using Heimdall), and boot to recovery again
+5. Reboot to recovery; /e/ will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP:
+   1. Boot to download mode (`Volume down` + `Bixby` + `Power`)
+   2. Run `sudo heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot`
+   3. Boot to recovery again (`Volume down` + `Power`, then `Volume up` + `Bixby` + `Power`)
+   4. This should land you in TWRP
 6. Wipe Data partition, possibly you need to reboot once more
-7. Re-install Magisk as per above (`adb push`, `adb shell twrp install`)
-8. Re-install `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip` as per above (`adb push`, `adb shell twrp install`)
+7. Re-install Magisk:
+   1. `adb push Magisk-v24.1.zip /sdcard`
+   2. In TWRP, push _Install_ and install this file
+8. Re-install ramdisk modification:
+   1. `adb push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard`
+   2. In TWRP, push _Install_ and install this file
 9. Restore backup of Data
 10. Reboot
 11. Restore backup from (1)
 12. You're now updated and rooted! \o/
+
+## Various tips & fixes
+
+### Starting a root shell
+
+This should normally be pretty straight forward:
+
+```shell
+adb -d kill-server
+adb -d root
+adb -d shell
+```
+
+(I add the `-d` to make it work on the USB connected device, as I also have an emulated phone created in Android Studio.)
+
+However, this normally results in this happening for me:
+
+```shell
+klaatu@jacob:~/e$ adb -d root
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+restarting adbd as root
+timeout expired while waiting for device
+```
+
+Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
+
+### Uninstalling the TWRP app
+
+Letting TWRP install its "official TWRP app" makes my phone refuse to boot for some reason. If this is the case for you, just follow these instructions for a really crude uninstall:
+
+1. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
+2. Mount the required partitions:
+   1. Press _Mount_
+   2. Press _Select Storage_ -> _Internal Storage_ -> _OK_
+   3. Select at least the _System_ and _Data_ partitions
+   4. Make sure _Mount system partition read-only_ is deselected
+3. Start a root shell using one of these methods:
+   1. On a computer connected via USB, do this to get a root shell:
+      ```shell
+      adb kill-shell
+      adb root
+      adb shell
+      ```
+   2. From the TWRP main menu, select `Advanced`, then `Terminal`
+4. Run
+   ```shell
+   find / -name '*twrpapp*' -print -exec rm {} \; 2>/dev/null
+   ```
+
+The TWRP app should now be removed and the system able to start as usual. This solutions was found [here](https://android.stackexchange.com/a/197178).
 
 ## Replacing Google
 
@@ -119,11 +188,17 @@ I started out by installing [a basic CalDAV server](https://radicale.org/v3.html
 
 ### Keep
 
-I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but the one I will probably use is [Carnet](https://www.getcarnet.app/). I haven't tried it out extensively yet, but it looks like a more beautiful Keep and seems to have all the features I want. Also, I can sync it with the Nextcloud I already installed, as well as import my old Keep items (via Google Takeout again) using [their Nextcloud web app](https://apps.nextcloud.com/apps/carnet).
+I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but the one I landed on is [Carnet](https://www.getcarnet.app/). It looks like a more beautiful Keep and has all the features I want. Also, I can sync it with the Nextcloud I already installed, as well as import my old Keep items (via Google Takeout again) using [their Nextcloud web app](https://apps.nextcloud.com/apps/carnet). The only major downside is that after clearing and restoring the _Data_ partition, which I do when [updating the OS](#updating-the-os), it tends to throw all my notes in the trash and behaving as a new install, forcing me to manually recover my old notes! But this is a nuisance at most.
 
 ### Drive & Photos
 
-The downside of Nextcloud is of course that you have to host your files yourself, or rely on there existing a Nextcloud integration with your cloud storage provider of choice (and the supply of such integrations honestly leaves a lot to be desired). So, as I neither want to invest in a NAS (plus the fact that backups should really be hosted off-site), nor want to settle for Dropbox or Onedrive, I will probably have to outsource the "file storage" part of my cloud solution to [Mega](https://mega.io/), who offer end-to-end encryption as well as native Linux (including Raspbian!) clients. Perhaps there is some convoluted way of integrating this into Nextcloud, but it's not a big deal. I've had good experiences with Mega in the past and will probably upgrade to a paid subscription.
+The downside of Nextcloud is of course that you have to host your files yourself, or rely on there existing a Nextcloud integration with your cloud storage provider of choice (and the supply of such integrations honestly leaves a lot to be desired). So, as I neither want to invest in a NAS (plus the fact that backups should really be hosted off-site), nor want to settle for Dropbox or Onedrive, I decided to outsource the "file storage" part of my cloud solution to [Mega](https://mega.io/), who offer end-to-end encryption as well as native Linux (including Raspbian!) clients. 
+
+#### Nerd notes
+
+The only major downside is that there isn't a really efficient and reliable way to mount my Mega files as a local directory. The [Mega CMD](https://mega.nz/cmd) utils include tools to serve your files via WebDAV and FTP, which in turn enables you to mount using [davfs2](https://savannah.nongnu.org/p/davfs2) or [CurlFtpFS](http://curlftpfs.sourceforge.net/), respectively. But the WebDAV solution has been a bit janky for me, sometimes refusing to work because of filenames with some weird characters, and the FTP alternative is in beta and has also been a bit buggy for me.
+
+The Mega SDK source code includes an [example implementation of a FUSE module](https://github.com/meganz/sdk/tree/master/examples/linux), but it's extremely basic and does not implement any caching. This makes transfers way too slow for usages such as video streaming. I have actually been working on my own FUSE module, but as my C++ skills leave a lot to be desired, the future for this project is uncertain.
 
 ### Software keyboard
 
@@ -135,7 +210,7 @@ The Openboard versions in the app stores don't have a Swedish wordlist, though. 
 
 ### Chromecast
 
-I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [XBian](https://xbian.org/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/).
+I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [OSMC](https://osmc.tv/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/).
 
 In order to run Spotify on this Raspberry Pi, use [Raspotify](https://dtcooper.github.io/raspotify/), which is a thin wrapper over [Librespot](https://github.com/librespot-org/librespot):
 
