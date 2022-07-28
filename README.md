@@ -4,6 +4,8 @@ Like so many of us, I was sick and tired of being constantly tracked and monitor
 
 Midway through, I decided to document the project in this manner, both for myself and for anyone who might find it useful in any way.
 
+This is an ever evolving document.
+
 ## Before
 
 I use a Samsung Galaxy S9 (codename `starlte`). My most used Google apps on it were probably Keep, Youtube, and Drive. I host my own email since many years back, but I used the Gmail app to access it. I used Google Calendar, albeit with another app as frontend. And yes, I also synced my phone's photos with Google Photos. :-/
