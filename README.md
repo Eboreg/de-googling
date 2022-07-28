@@ -6,25 +6,25 @@ Midway through, I decided to document the project in this manner, both for mysel
 
 This is an ever evolving document.
 
-## Before
+# Before
 
 I use a Samsung Galaxy S9 (codename `starlte`). My most used Google apps on it were probably Keep, Youtube, and Drive. I host my own email since many years back, but I used the Gmail app to access it. I used Google Calendar, albeit with another app as frontend. And yes, I also synced my phone's photos with Google Photos. :-/
 
 When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use Firefox for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: Google's image search is admittedly better, and I can't seem to get rid of all those search results in Chinese).
 
-## Choosing a distribution
+# Choosing a distribution
 
 My first choice was [LineageOS](https://lineageos.org/). However, I soon learned I would need [MicroG](https://microg.org/) in order to receive push notifications and such stuff ... I think. My understanding of this is a bit patchy. Anyway, vanilla LineageOS does not include MicroG, the [LineageOS for MicroG](https://lineage.microg.org/) project doesn't have any builds for my phone (also, their site was down at the time), and I didn't want to make the installation more of a hassle than necessary (I don't really have a backup phone should I brick my current one). 
 
 Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/).
 
-## Installing the OS
+# Installing the OS
 
-### Easy install
+## Easy install
 
 I found that the /e/ "easy installer" software actually worked like a charm with my device; check [here](https://doc.e.foundation/devices) to find out if it's available for yours. Only problem is it insists on encrypting your Data partition, which (as I understand it) makes it impossible for you to root your phone. But that can be fixed afterwards; more on that later.
 
-### Less easy install
+## Less easy install
 
 I also played around quite a bit with manual installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process I ultimately landed upon:
 
@@ -86,7 +86,7 @@ Still in TWRP, choose to reboot normally. It will prompt you to install the TWRP
 
 Reboot, and the new OS plus Magisk should now be installed!
 
-## Updating the OS
+# Updating the OS
 
 /e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, do this:
 
@@ -119,39 +119,39 @@ Reboot, and the new OS plus Magisk should now be installed!
 11. Restore backup from (1)
 12. You're now updated and rooted! \o/
 
-## Replacing Google
+# Replacing Google
 
-### The simple stuff
+## The simple stuff
 
 * Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
 * Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
 * Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest)
 
-### Play Store
+## Play Store
 
 First choice for us [RMS](https://stallman.org/) wannabes is of course [F-Droid](https://f-droid.org/).
 
 For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/) or [Aptoide](https://en.aptoide.com/).
 
-### Calendar
+## Calendar
 
 I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [/e/'s preinstalled fork of the Etar calendar app](https://gitlab.e.foundation/e/apps/calendar). 
 
-### Keep
+## Keep
 
 I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but the one I landed on is [Carnet](https://www.getcarnet.app/). It looks like a more beautiful Keep and has all the features I want. Also, I can sync it with the Nextcloud I already installed, as well as import my old Keep items (via Google Takeout again) using [their Nextcloud web app](https://apps.nextcloud.com/apps/carnet). The only major downside is that after clearing and restoring the _Data_ partition, which I do when [updating the OS](#updating-the-os), it tends to throw all my notes in the trash and behaving as a new install, forcing me to manually recover my old notes! But this is a nuisance at most.
 
-### Drive & Photos
+## Drive & Photos
 
 The downside of Nextcloud is of course that you have to host your files yourself, or rely on there existing a Nextcloud integration with your cloud storage provider of choice (and the supply of such integrations honestly leaves a lot to be desired). So, as I neither want to invest in a NAS (plus the fact that backups should really be hosted off-site), nor want to settle for Dropbox or Onedrive, I decided to outsource the "file storage" part of my cloud solution to [Mega](https://mega.io/), who offer end-to-end encryption as well as native Linux (including Raspbian!) clients. 
 
-#### Nerd notes
+### Nerd notes
 
 The only major downside is that there isn't a really efficient and reliable way to mount my Mega files as a local directory. The [Mega CMD](https://mega.nz/cmd) utils include tools to serve your files via WebDAV and FTP, which in turn enables you to mount using [davfs2](https://savannah.nongnu.org/p/davfs2) or [CurlFtpFS](http://curlftpfs.sourceforge.net/), respectively. But the WebDAV solution has been a bit janky for me, sometimes refusing to work because of filenames with some weird characters, and the FTP alternative is in beta and has also been a bit buggy for me.
 
 The Mega SDK source code includes an [example implementation of a FUSE module](https://github.com/meganz/sdk/tree/master/examples/linux), but it's extremely basic and does not implement any caching. This makes transfers way too slow for usages such as video streaming. I have actually been working on my own FUSE module, but as my C++ skills leave a lot to be desired, the future for this project is uncertain.
 
-### Software keyboard
+## Software keyboard
 
 This is probably where it makes the most sense to use open source software, since this app literally sees everything you type. Here is also where I ended up sinning, as Swiftkey is simply too damn good for me to switch, and none of the FOSS keyboards were to my satisfaction. But I did try!
 
@@ -159,7 +159,7 @@ This is probably where it makes the most sense to use open source software, sinc
 
 The Openboard versions in the app stores don't have a Swedish wordlist, though. To get that, you either need to build the app from [source](https://github.com/dslul/openboard) or trust one of the [user built packages](https://github.com/dslul/openboard/issues/454) (which you probably shouldn't).
 
-### Chromecast
+## Chromecast
 
 I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [OSMC](https://osmc.tv/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/).
 
@@ -191,7 +191,7 @@ Your Raspberry Pi should now pop up as a device in your Spotify clients. Works l
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
-### The Bixby button
+## The Bixby button
 
 My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
 
@@ -220,16 +220,16 @@ adb shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644
 Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
 
 
-## Non-phone de-googling
+# Non-phone de-googling
 
 For those instances where you need to use Google services on your computer, I can recommend the add-ons [Firefox Multi-Account Containers](https://addons.mozilla.org/firefox/addon/multi-account-containers/) and [Google Container](https://addons.mozilla.org/firefox/addon/google-container/), which will at least keep your Google identity from leaking all over the place.
 
 If Google requires two-factor authentication, you can select the option "Get a verification code from the **Google Authenticator** app", but use an open source TOTP app instead, like the excellent [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/).
 
 
-## Various tips & fixes
+# Various tips & fixes
 
-### Starting a root shell
+## Starting a root shell
 
 This should normally be pretty straight forward:
 
@@ -253,7 +253,7 @@ timeout expired while waiting for device
 
 Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
 
-### Uninstalling the TWRP app
+## Uninstalling the TWRP app
 
 Letting TWRP install its "official TWRP app" makes my phone refuse to boot for some reason. If this is the case for you, just follow these instructions for a really crude uninstall:
 
@@ -278,7 +278,7 @@ Letting TWRP install its "official TWRP app" makes my phone refuse to boot for s
 
 The TWRP app should now be removed and the system able to start as usual. This solutions was found [here](https://android.stackexchange.com/a/197178).
 
-### Raspotify not working
+## Raspotify not working
 
 In July 2022, my [Raspotify installation](#chromecast) suddenly refused to play anything; librespot panicked and complained about "channel closed". I found [this issue](https://github.com/librespot-org/librespot/issues/972), which suggested there is some problem with one of Spotify's access points. So I added this to `/etc/hosts` on the Pi:
 
