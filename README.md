@@ -157,7 +157,7 @@ This is probably where it makes the most sense to use open source software, sinc
 
 [Openboard](https://f-droid.org/en/packages/org.dslul.openboard.inputmethod.latin/) looks to me like the best alternative, although [Florisboard](https://f-droid.org/en/packages/dev.patrickgold.florisboard/) shows great promise.
 
-The Openboard versions in the app stores don't have a Swedish wordlist, though. To get that, you either need to build the app from [source](https://github.com/dslul/openboard) or trust one of the [user built packages](https://github.com/dslul/openboard/issues/454) (which you probably shouldn't).
+The Openboard versions in the app stores didn't have a Swedish wordlist, though (although this may have changed by now). To get that, you either need to build the app from [source](https://github.com/dslul/openboard) or trust one of the [user built packages](https://github.com/dslul/openboard/issues/454) (which you probably shouldn't).
 
 ## Chromecast
 
