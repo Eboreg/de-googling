@@ -131,7 +131,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 First choice for us [RMS](https://stallman.org/) wannabes is of course [F-Droid](https://f-droid.org/).
 
-For non-FOSS apps, I just use the conveniently titled ["Apps"](https://gitlab.e.foundation/e/apps/apps) app that came preinstalled; only for some special cases, like my Swedish bank's application (yes, it works, and so does Swish and BankID!), have I needed to consult places like [APKPure](https://apkpure.com/) or [Aptoide](https://en.aptoide.com/).
+For non-FOSS apps, I just use the preinstalled *App Lounge* application, where it seems you can access all of Play Store's apps anonymously, including my local Swedish services such as Swish and BankID (which work flawlessly, BTW). There are some annoying graphical bugs still, but basically it works fine.
 
 ## Calendar
 
