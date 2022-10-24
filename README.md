@@ -126,6 +126,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 * Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
 * Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
 * Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest)
+* Google Authenticator -> [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/)
 
 ## Play Store
 
