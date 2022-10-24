@@ -2,7 +2,7 @@
 
 Like so many of us, I was sick and tired of being constantly tracked and monitored by Big Tech. But it was very much [Rob Braxman's videos](https://odysee.com/@RobBraxmanTech:6) that got me started on actually doing something about it, so big thanks to him for that.
 
-Midway through, I decided to document the project in this manner, both for myself and for anyone who might find it useful in any way.
+Midway through, I decided to document the project in this manner, both for myself and for anyone who might find it useful in any way. Some of it is very specific to my particular phone model, but much isn't.
 
 This is an ever evolving document.
 
