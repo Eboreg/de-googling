@@ -65,17 +65,17 @@ Now we're in TWRP. Do `Wipe > Format Data > type "yes"`. Back to main menu, rebo
 Run (with the correct filenames of course):
 
 ```shell
-adb shell "twrp mount system"
-adb shell "twrp wipe system"
-adb shell "twrp wipe cache"
-adb push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard
-adb shell twrp install /sdcard/Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip
-adb push VENDOR-27_ARI9.zip /sdcard
-adb shell twrp install /sdcard/VENDOR-27_ARI9.zip
-adb push e-0.20-o-20220118158074-stable-starlte.zip /sdcard
-adb shell twrp install /sdcard/e-0.20-o-20220118158074-stable-starlte.zip
-adb push Magisk-v24.1.zip /sdcard
-adb shell twrp install /sdcard/Magisk-v24.1.zip
+adb -d shell "twrp mount system"
+adb -d shell "twrp wipe system"
+adb -d shell "twrp wipe cache"
+adb -d push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard
+adb -d shell twrp install /sdcard/Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip
+adb -d push VENDOR-27_ARI9.zip /sdcard
+adb -d shell twrp install /sdcard/VENDOR-27_ARI9.zip
+adb -d push e-0.20-o-20220118158074-stable-starlte.zip /sdcard
+adb -d shell twrp install /sdcard/e-0.20-o-20220118158074-stable-starlte.zip
+adb -d push Magisk-v24.1.zip /sdcard
+adb -d shell twrp install /sdcard/Magisk-v24.1.zip
 ```
 
 (The `adb shell twrp install` commands may also be done directly in TWRP, by selecting _Install_ from the main menu, saving you some tedious copy-pasting of filenames.)
@@ -109,10 +109,10 @@ Reboot, and the new OS plus Magisk should now be installed!
    4. This should land you in TWRP
 6. Wipe Data partition, possibly you need to reboot once more
 7. Re-install Magisk:
-   1. `adb push Magisk-v24.1.zip /sdcard`
+   1. `adb -d push Magisk-v24.1.zip /sdcard`
    2. In TWRP, push _Install_ and install this file
 8. Re-install ramdisk modification:
-   1. `adb push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard`
+   1. `adb -d push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard`
    2. In TWRP, push _Install_ and install this file
 9. Restore backup of Data
 10. Reboot
@@ -203,10 +203,10 @@ My phone is one of those equipped with an extra button, originally hardcoded to 
 
 # N.B: DON'T USE THIS VERBATIM ON YOUR DEVICE! ONLY FOR INSPIRATION.
 
-adb root
-adb remount
-adb shell "cd /system/usr/keylayout && cp gpio_keys.kl gpio_keys.kl.backup"
-adb pull /system/usr/keylayout/gpio_keys.kl ./
+adb -d root
+adb -d remount
+adb -d shell "cd /system/usr/keylayout && cp gpio_keys.kl gpio_keys.kl.backup"
+adb -d pull /system/usr/keylayout/gpio_keys.kl ./
 grep -q '^key 703' gpio_keys.kl
 if [ $? -eq 0 ]; then
     # key found
@@ -214,9 +214,9 @@ if [ $? -eq 0 ]; then
 else
     echo 'key 703 MEDIA_PLAY_PAUSE' >>gpio_keys.kl 
 fi
-adb push gpio_keys.kl /system/usr/keylayout/
+adb -d push gpio_keys.kl /system/usr/keylayout/
 # Should not be needed, but just for safety:
-adb shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644 gpio_keys.kl"
+adb -d shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644 gpio_keys.kl"
 # Now reboot the phone.
 ```
 
@@ -269,9 +269,9 @@ Letting TWRP install its "official TWRP app" makes my phone refuse to boot for s
 3. Start a root shell using one of these methods:
    1. On a computer connected via USB, do this to get a root shell:
       ```shell
-      adb kill-shell
-      adb root
-      adb shell
+      adb -d kill-shell
+      adb -d root
+      adb -d shell
       ```
    2. From the TWRP main menu, select `Advanced`, then `Terminal`
 4. Run
