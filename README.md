@@ -88,17 +88,15 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 # Updating the OS
 
-/e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, do this:
+/e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, here is what to do. Don't forget to uncheck the "install TWRP app" every time you exit TWRP, if you experience the same trouble as me with that one (see previous section).
 
-1. Manually back up any images, documents, etc that you want to keep. Here is my preferred method of doing this (which, of course, requires an installed SD card with sufficient free space):
-   1. On a computer connected via USB, [start a root shell](#starting-a-root-shell)
-   2. Locate the root directory of your SD card; for me, it's at `/storage/0000-0000/`
-   3. Navigate to the root directory of your user files; it will probably be in `/storage/self/primary/`
-   4. Just zip the stuff you want to save, something like:
-      ```shell
-      zip -r /storage/0000-0000/my_stuff.zip Documents/ Music/ DCIM/
-      ```
-      N.B. Don't include the _Android_ directory.
+1. Manually back up any images, documents, etc that you want to keep. My preferred method of doing this:
+   ```
+   adb -d pull /storage/self/primary/Pictures .
+   adb -d pull /storage/self/primary/Documents .
+   etc.
+   ```
+   N.B. Don't include the _Android_ directory.
 2. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
 3. Do a backup of the Data partition, preferably to external SD card
 4. Reboot and let it upgrade and encrypt
@@ -116,8 +114,14 @@ Reboot, and the new OS plus Magisk should now be installed!
    2. In TWRP, push _Install_ and install this file
 9. Restore backup of Data
 10. Reboot
-11. Restore backup from (1)
-12. You're now updated and rooted! \o/
+11. Restore backup from (1):
+    ```
+    adb -d push Pictures /storage/self/primary/
+    adb -d push Documents /storage/self/primary/
+    etc.
+    ```
+13. You're now updated and rooted! \o/
+14. Optional step: [Remap the Bixby button](#the-bixby-button)
 
 # Replacing Google
 
@@ -125,7 +129,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 * Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
 * Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
-* Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest)
+* Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest. Unfortunately, app settings seem to reset after [OS update](#updating-the-os), so make sure to back them all up as soon as you're satisfied with them)
 * Google Authenticator -> [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/)
 
 ## Play Store
