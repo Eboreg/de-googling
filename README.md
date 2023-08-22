@@ -10,7 +10,9 @@ This is an ever evolving document.
 
 I use a Samsung Galaxy S9 (codename `starlte`). My most used Google apps on it were probably Keep, Youtube, and Drive. I host my own email since many years back, but I used the Gmail app to access it. I used Google Calendar, albeit with another app as frontend. And yes, I also synced my phone's photos with Google Photos. :-/
 
-When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use Firefox for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: ~~Google's image search is admittedly better~~ _(Edit: Not anymore; it seems they have fucked it up with some "Google Lens" nonsense)_, and I can't seem to get rid of all those search results in Chinese).
+When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use Firefox for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: ~~Google's image search is admittedly better~~[*], and I can't seem to get rid of all those search results in Chinese).
+
+[*] Edit: Not anymore; it seems they have fucked it up with some "Google Lens" nonsense.
 
 # Choosing a distribution
 
