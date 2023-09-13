@@ -20,13 +20,13 @@ When backing up my computers, I also used Drive for storage; however, the files 
 
 My first choice was [LineageOS](https://lineageos.org/). However, I soon learned I would need [MicroG](https://microg.org/) in order to receive push notifications and such stuff ... I think. My understanding of this is a bit patchy. Anyway, vanilla LineageOS does not include MicroG, the [LineageOS for MicroG](https://lineage.microg.org/) project doesn't have any builds for my phone (also, their site was down at the time), and I didn't want to make the installation more of a hassle than necessary (I don't really have a backup phone should I brick my current one). 
 
-Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/).
+Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/) (which I will henceworth refer to as "E", because that _is_ how names are written).
 
 # Installing the OS
 
 ## Easy install
 
-I found that the /e/ "easy installer" software actually worked like a charm with my device; check [here](https://doc.e.foundation/devices) to find out if it's available for yours. Only problem is it insists on encrypting your Data partition, which (as I understand it) makes it impossible for you to root your phone. But that can be fixed afterwards; more on that later.
+I found that the E "easy installer" software actually worked like a charm with my device; check [here](https://doc.e.foundation/devices) to find out if it's available for yours. Only problem is it insists on encrypting your Data partition, which (as I understand it) makes it impossible for you to root your phone. But that can be fixed afterwards; more on that later.
 
 ## Less easy install
 
@@ -39,7 +39,7 @@ Download:
 * Custom recovery [TWRP 3.2.3 for starlte](https://images.ecloud.global/stable/twrp/starlte/twrp-3.2.3-0-starlte.img) - find a variant for your device [here](https://twrp.me/Devices/). The reason I didn't go for a later version is it resulted in the error "failed to mount /odm" later on, but your mileage may vary.
 * Ramdisk modification stuff to remove forceful encryption and other things: [Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip](https://zackptg5.com/downloads/archive/Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip)
 * Vendor stuff: [VENDOR-27_ARI9.zip](https://images.ecloud.global/stable/vendors/VENDOR-27_ARI9.zip) (specific to my phone model)
-* [Latest /e/ image ZIP archive](https://images.ecloud.global/stable/starlte/e-latest-starlte.zip) for my device; find yours [here](https://doc.e.foundation/devices)
+* [Latest E image ZIP archive](https://images.ecloud.global/stable/starlte/e-latest-starlte.zip) for my device; find yours [here](https://doc.e.foundation/devices)
 * [Magisk APK](https://github.com/topjohnwu/Magisk/releases/)
 
 Rename `Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip` to `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip`, because the filename holds significance and this disables disk quota. I honestly don't remember why I decided on this and if it's necessary in any way, but you can read more about it [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/).
@@ -92,7 +92,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 
 # Updating the OS
 
-/e/ sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, here is what to do. Don't forget to uncheck the "install TWRP app" every time you exit TWRP, if you experience the same trouble as me with that one (see previous section).
+E sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, here is what to do. Don't forget to uncheck the "install TWRP app" every time you exit TWRP, if you experience the same trouble as me with that one (see previous section).
 
 1. Manually back up any images, documents, etc that you want to keep. My preferred method of doing this:
    ```
@@ -104,7 +104,7 @@ Reboot, and the new OS plus Magisk should now be installed!
 2. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
 3. Do a backup of the Data partition, preferably to external SD card
 4. Reboot and let it upgrade and encrypt
-5. Reboot to recovery; /e/ will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP:
+5. Reboot to recovery; E will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP:
    1. Boot to download mode (`Volume down` + `Bixby` + `Power`)
    2. Run `sudo heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot`
    3. Boot to recovery again (`Volume down` + `Power`, then `Volume up` + `Bixby` + `Power`)
@@ -144,7 +144,7 @@ For non-FOSS apps, I just use the preinstalled *App Lounge* application, where i
 
 ## Calendar
 
-I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [/e/'s preinstalled fork of the Etar calendar app](https://gitlab.e.foundation/e/apps/calendar). 
+I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [E's preinstalled fork of the Etar calendar app](https://gitlab.e.foundation/e/apps/calendar). 
 
 ## Keep
 
