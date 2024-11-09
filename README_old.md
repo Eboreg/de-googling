@@ -1,3 +1,5 @@
+_N.B. This is an old version of this document, archived for posterity. The main document is at [README.md](README.md)._
+
 # My de-googling experience
 
 Like so many of us, I was sick and tired of being constantly tracked and monitored by Big Tech. But it was very much [Rob Braxman's videos](https://odysee.com/@RobBraxmanTech:6) that got me started on actually doing something about it, so big thanks to him for that.
