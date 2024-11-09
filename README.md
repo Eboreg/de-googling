@@ -140,25 +140,33 @@ Your Raspberry Pi should now pop up as a device in your Spotify clients. Works l
 My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
 
 ```shell
-#!/bin/sh
+#!/usr/bin/env bash
 
 # N.B: DON'T USE THIS VERBATIM ON YOUR DEVICE! ONLY FOR INSPIRATION.
 
+patch_file() {
+    local path=$1
+    local filename="$(basename $path)"
+    local dir="$(dirname $path)"
+
+    adb -d shell "cp $path ${path}.backup"
+    adb -d pull "$path" ./
+    grep -q '^key 703' "$filename"
+    if [ $? -eq 0 ]; then
+        # key found
+        sed -i 's/^key 703.*$/key 703 MEDIA_PLAY_PAUSE/' "$filename"
+    else
+        echo 'key 703 MEDIA_PLAY_PAUSE' >>"$filename"
+    fi
+    adb -d push "$filename" "$dir"
+    adb -d shell "chown root:root $path && chmod 644 $path"
+}
+
 adb -d root
 adb -d remount
-adb -d shell "cd /system/usr/keylayout && cp gpio_keys.kl gpio_keys.kl.backup"
-adb -d pull /system/usr/keylayout/gpio_keys.kl ./
-grep -q '^key 703' gpio_keys.kl
-if [ $? -eq 0 ]; then
-    # key found
-    sed -i 's/^key 703.*$/key 703 MEDIA_PLAY_PAUSE/' gpio_keys.kl
-else
-    echo 'key 703 MEDIA_PLAY_PAUSE' >>gpio_keys.kl 
-fi
-adb -d push gpio_keys.kl /system/usr/keylayout/
-# Should not be needed, but just for safety:
-adb -d shell "cd /system/usr/keylayout && chown root:root gpio_keys.kl && chmod 644 gpio_keys.kl"
-# Now reboot the phone.
+# Note: Probably only the 2nd line is really necessary.
+patch_file "/system/usr/keylayout/Generic.kl"
+patch_file "/vendor/usr/keylayout/gpio_keys.kl"
 ```
 
 Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
