@@ -4,7 +4,10 @@ Like so many of us, I was sick and tired of being constantly tracked and monitor
 
 Midway through, I decided to document the project in this manner, both for myself and for anyone who might find it useful in any way. Some of it is very specific to my particular phone model, but much isn't.
 
+In 2024, I made a major overhaul by switching from [E](https://e.foundation/) to [LineageOS for MicroG](https://lineage.microg.org/), and decided to scrap a bunch of no-longer-relevant stuff from this document. There is an archived version [here](README_old.md).
+
 This is an ever evolving document.
+
 
 # Before
 
@@ -18,114 +21,39 @@ When backing up my computers, I also used Drive for storage; however, the files 
 
 # Choosing a distribution
 
-My first choice was [LineageOS](https://lineageos.org/). However, I soon learned I would need [MicroG](https://microg.org/) in order to receive push notifications and such stuff ... I think. My understanding of this is a bit patchy. Anyway, vanilla LineageOS does not include MicroG, the [LineageOS for MicroG](https://lineage.microg.org/) project doesn't have any builds for my phone (also, their site was down at the time), and I didn't want to make the installation more of a hassle than necessary (I don't really have a backup phone should I brick my current one). 
+For a couple of years, I used the impossibly named LineageOS fork [/e/](https://e.foundation/) (which I will refer to as "E", because that _is_ how names are written), mainly because I wanted to use [MicroG](https://microg.org/) in order to receive push notifications and such stuff, which is not included in [vanilla LineageOS[*]](https://lineageos.org/), and the [LineageOS for MicroG](https://lineage.microg.org/) project didn't have any builds for my phone at that time.
 
-Solution: I went for the impossibly named LineageOS fork [/e/](https://e.foundation/) (which I will henceworth refer to as "E", because that _is_ how names are written).
+However, in 2024 I discovered that there _was_ now a _LineageOS for MicroG_ build for my phone. And since I had gotten my entire motherboard changed after dropping my phone into the Arctic ocean (long story), I thought I may as well try it out. And it's been a joy to use! I can't really point out any specific reasons, but it's just generally less of a hassle than with E.
+
+[*] I make an exception for names that contain acronyms.
+
 
 # Installing the OS
 
-## Easy install
+Don't have much to add to [the official guide](https://wiki.lineageos.org/devices/starlte/), IIRC. At least I don't remember there being any significant hitches. Still, I will list the basic procedure:
 
-I found that the E "easy installer" software actually worked like a charm with my device; check [here](https://doc.e.foundation/devices) to find out if it's available for yours. Only problem is it insists on encrypting your Data partition, which (as I understand it) makes it impossible for you to root your phone. But that can be fixed afterwards; more on that later.
+1. Install [ADB](https://developer.android.com/studio/command-line/adb) and [Heimdall](https://github.com/Benjamin-Dobell/Heimdall)
+2. Enable developer options and USB debugging on the phone
+3. Download the latest .zip and .img files from [here](https://download.lineageos.org/devices/starlte/builds)
+4. Boot to download mode (hold down `Volume down` + `Bixby` + `Power`)
+5. Run `heimdall flash --RECOVERY recovery.img --no-reboot`
+6. Power off device (`Volume down` + `Power`)
+7. Immediately when the screen turns black: boot to recovery (`Volume up` + `Bixby` + `Power`)
+8. Select `Factory reset`, then `Format data / factory reset`
+9. Select `Apply Update`, then `Apply from ADB`
+10. Run `adb -d sideload lineage-[...].zip`
+11. Reboot! \o/
 
-## Less easy install
 
-I also played around quite a bit with manual installation. For this, I mostly followed the instructions [here](https://doc.e.foundation/devices/starlte/install) (with some assistance from [here](https://www.getdroidtips.com/lineage-os-18-1-samsung-galaxy-s9/)). I will now detail the process I ultimately landed upon:
+# Rooting
 
-Install [Heimdall](https://doc.e.foundation/support-topics/install-heimdall) (specifically for Samsung phones) and [adb](https://developer.android.com/studio/command-line/adb).
+For rooting with Magisk, I basically followed the instructions [on this page](https://topjohnwu.github.io/Magisk/install.html), except I didn't need to do the stuff under _Samsung devices_ (probably because a custom ROM was already installed). Which is just as well, because I couldn't get any of the stock firmware download tools to work.
 
-Download:
-
-* Custom recovery [TWRP 3.2.3 for starlte](https://images.ecloud.global/stable/twrp/starlte/twrp-3.2.3-0-starlte.img) - find a variant for your device [here](https://twrp.me/Devices/). The reason I didn't go for a later version is it resulted in the error "failed to mount /odm" later on, but your mileage may vary.
-* Ramdisk modification stuff to remove forceful encryption and other things: [Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip](https://zackptg5.com/downloads/archive/Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip)
-* Vendor stuff: [VENDOR-27_ARI9.zip](https://images.ecloud.global/stable/vendors/VENDOR-27_ARI9.zip) (specific to my phone model)
-* [Latest E image ZIP archive](https://images.ecloud.global/stable/starlte/e-latest-starlte.zip) for my device; find yours [here](https://doc.e.foundation/devices)
-* [Magisk APK](https://github.com/topjohnwu/Magisk/releases/)
-
-Rename `Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip` to `Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip`, because the filename holds significance and this disables disk quota. I honestly don't remember why I decided on this and if it's necessary in any way, but you can read more about it [here](https://forum.xda-developers.com/t/deprecated-universal-dm-verity-forceencrypt-disk-quota-disabler-11-2-2020.3817389/).
-
-(Also, the "official" guide instructs you to use [no-verity-opt-encrypt-samsung-1.0.zip](https://images.ecloud.global/stable/patch/no-verity-opt-encrypt-samsung-1.0.zip) instead. I think this also worked for me, at least in combination with TWRP 3.2.3 (i.e. not the latest version), but that's just not the combination I ended up with.)
-
-Rename `Magisk-vXX.apk` to `Magisk-vXX.zip`.
-
-Boot to download mode (hold down `Volume down` + `Bixby` + `Power`). Run:
-
-```shell
-sudo heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot
-```
-
-(I don't know if it's always necessary to do this as root, but it was for me.)
-
-Do not detach the USB cable before rebooting now, regardless of that the instructions say. I had some trouble getting it to reboot to recovery at this point; it would insist on rebooting normally, which would overwrite TWRP and render the whole exercise pointless. After some attempts, I discovered it actually worked with the USB cable still attached for some reason.
-
-Power off device (`Volume down` + `Power`).
-
-Immediately when the screen turns black: boot to recovery (`Volume up` + `Bixby` + `Power`).
-
-**IMPORTANT: This is the point of no return. The actions hereafter will wipe all data from your phone.**
-
-Now we're in TWRP. Do `Wipe > Format Data > type "yes"`. Back to main menu, reboot to recovery again.
-
-Run (with the correct filenames of course):
-
-```shell
-adb -d shell "twrp mount system"
-adb -d shell "twrp wipe system"
-adb -d shell "twrp wipe cache"
-adb -d push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard
-adb -d shell twrp install /sdcard/Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip
-adb -d push VENDOR-27_ARI9.zip /sdcard
-adb -d shell twrp install /sdcard/VENDOR-27_ARI9.zip
-adb -d push e-0.20-o-20220118158074-stable-starlte.zip /sdcard
-adb -d shell twrp install /sdcard/e-0.20-o-20220118158074-stable-starlte.zip
-adb -d push Magisk-v24.1.zip /sdcard
-adb -d shell twrp install /sdcard/Magisk-v24.1.zip
-```
-
-(The `adb shell twrp install` commands may also be done directly in TWRP, by selecting _Install_ from the main menu, saving you some tedious copy-pasting of filenames.)
-
-Then, in TWRP: `Wipe > Advanced wipe > Data > Repair or change file system > Resize file system`.
-
-Still in TWRP, choose to reboot normally. It will prompt you to install the TWRP app; however, every time I have agreed to do this, the system has refused to start afterwards, so I don't let it do that. But again, your mileage may vary. And if you end up with a non-booting phone after letting it install this app, just look [here](#uninstalling-the-twrp-app).
-
-Reboot, and the new OS plus Magisk should now be installed!
 
 # Updating the OS
 
-E sometimes prompts you to install an OS update, which you of course should. However, this also automatically encrypts the Data partition, making you lose your sweet root privileges. So, whenever it wants to update, here is what to do. Don't forget to uncheck the "install TWRP app" every time you exit TWRP, if you experience the same trouble as me with that one (see previous section).
+Nothing noteworthy here. But Magisk will probably need to be reinstalled afterwards.
 
-1. Manually back up any images, documents, etc that you want to keep. My preferred method of doing this:
-   ```
-   adb -d pull /storage/self/primary/Pictures .
-   adb -d pull /storage/self/primary/Documents .
-   etc.
-   ```
-   N.B. Don't include the _Android_ directory.
-2. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
-3. Do a backup of the Data partition, preferably to external SD card
-4. Reboot and let it upgrade and encrypt
-5. Reboot to recovery; E will probably have installed its own recovery now, just to fuck with you; in that case, reinstall TWRP:
-   1. Boot to download mode (`Volume down` + `Bixby` + `Power`)
-   2. Run `sudo heimdall flash --RECOVERY twrp-3.2.3-0-starlte.img --no-reboot`
-   3. Boot to recovery again (`Volume down` + `Power`, then `Volume up` + `Bixby` + `Power`)
-   4. This should land you in TWRP
-6. Wipe Data partition, possibly you need to reboot once more
-7. Re-install Magisk:
-   1. `adb -d push Magisk-v24.1.zip /sdcard`
-   2. In TWRP, push _Install_ and install this file
-8. Re-install ramdisk modification:
-   1. `adb -d push Disable_Dm-Verity_ForceEncrypt_quota_11.02.2020.zip /sdcard`
-   2. In TWRP, push _Install_ and install this file
-9. Restore backup of Data
-10. Reboot
-11. Restore backup from (1):
-    ```
-    adb -d push Pictures /storage/self/primary/
-    adb -d push Documents /storage/self/primary/
-    etc.
-    ```
-13. You're now updated and rooted! \o/
-14. Optional step: [Remap the Bixby button](#the-bixby-button)
 
 # Replacing Google
 
@@ -144,7 +72,7 @@ For non-FOSS apps, I just use the preinstalled *App Lounge* application, where i
 
 ## Calendar
 
-I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [E's preinstalled fork of the Etar calendar app](https://gitlab.e.foundation/e/apps/calendar). 
+I started out by installing [a basic CalDAV server](https://radicale.org/v3.html) on my trusty Raspberry Pi. But then I realised I wanted to try out that [Nextcloud](https://nextcloud.com/) thing everybody is raving about, so I installed that too on my poor Pi (with much help from [this page](https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html), as I was already running Nginx). Not surprisingly, it runs a bit sluggish, and large imports tend to require some retries and also increasing the server timeout limits. But for my humble needs, it will probably suffice. Importing the `.ics` file exported from Google Calendar was a breeze IIRC. On the phone, I just use [the preinstalled Etar](https://f-droid.org/packages/ws.xsoh.etar/). 
 
 ## Keep
 
@@ -206,7 +134,8 @@ Your Raspberry Pi should now pop up as a device in your Spotify clients. Works l
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
-## The Bixby button
+
+# The Bixby button
 
 My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
 
@@ -267,31 +196,6 @@ timeout expired while waiting for device
 ```
 
 Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
-
-## Uninstalling the TWRP app
-
-Letting TWRP install its "official TWRP app" makes my phone refuse to boot for some reason. If this is the case for you, just follow these instructions for a really crude uninstall:
-
-1. Boot to recovery a.k.a. TWRP (`Volume up` + `Bixby` + `Power`)
-2. Mount the required partitions:
-   1. Press _Mount_
-   2. Press _Select Storage_ -> _Internal Storage_ -> _OK_
-   3. Select at least the _System_ and _Data_ partitions
-   4. Make sure _Mount system partition read-only_ is deselected
-3. Start a root shell using one of these methods:
-   1. On a computer connected via USB, do this to get a root shell:
-      ```shell
-      adb -d kill-shell
-      adb -d root
-      adb -d shell
-      ```
-   2. From the TWRP main menu, select `Advanced`, then `Terminal`
-4. Run
-   ```shell
-   find / -name '*twrpapp*' -print -exec rm {} \; 2>/dev/null
-   ```
-
-The TWRP app should now be removed and the system able to start as usual. This solutions was found [here](https://android.stackexchange.com/a/197178).
 
 ## Raspotify not working
 
