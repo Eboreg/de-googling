@@ -6,7 +6,7 @@ Like so many of us, I was sick and tired of being constantly tracked and monitor
 
 Midway through, I decided to document the project in this manner, both for myself and for anyone who might find it useful in any way. Some of it is very specific to my particular phone model, but much isn't.
 
-This is an ever evolving document.
+This is no longer an ever evolving document.
 
 # Before
 
