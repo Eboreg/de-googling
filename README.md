@@ -44,6 +44,8 @@ Don't have much to add to [the official guide](https://wiki.lineageos.org/device
 10. Run `adb -d sideload lineage-[...].zip`
 11. Reboot! \o/
 
+Keep `recovery.img` somewhere on your phone! It will come in handy at later OS updates, see below.
+
 
 # Rooting
 
@@ -52,7 +54,16 @@ For rooting with Magisk, I basically followed the instructions [on this page](ht
 
 # Updating the OS
 
-Nothing noteworthy here. But Magisk will probably need to be reinstalled afterwards.
+Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
+
+1. Magisk app -> Magisk Install -> Select and Patch a File -> select `recovery.img` from above
+2. Download patched Magisk APK to your computer
+3. Reboot phone to recovery, then: Advanced -> Enable ADB -> Back -> Apply update -> Apply from ADB
+4. On computer: `adb -d sideload Magisk-[...].apk`
+5. Phone warns: "Signature verification failed"; choose to install anyway
+6. Reboot phone
+7. Magisk app will say that is requires additional setup and reinstallation "within app"; let it do so, and select "Direct Install (Recommended)"
+8. Reboot phone again
 
 
 # Replacing Google
