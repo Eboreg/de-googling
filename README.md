@@ -99,6 +99,35 @@ The only major downside is that there isn't a really efficient and reliable way 
 
 The Mega SDK source code includes an [example implementation of a FUSE module](https://github.com/meganz/sdk/tree/master/examples/linux), but it's extremely basic and does not implement any caching. This makes transfers way too slow for usages such as video streaming. I have actually been working on my own FUSE module, but as my C++ skills leave a lot to be desired, the future for this project is uncertain.
 
+The solution I have instead gone for is instead to store my music & video collections on a couple of disks connected to one of my Raspberry Pi's, and set up Mega syncs using their command line tool:
+
+```shell
+$ sudo mega-sync /media/T7/Video /Video
+$ sudo mega-sync /media/T7/Music /Music
+```
+
+... and then create this little system service to make sure the Mega command server is always running:
+
+```shell
+$ cat /etc/systemd/system/mega-cmd.service 
+[Unit]
+Description=MEGA cmd server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mega-cmd-server
+Restart=always
+LogLevelMax=5
+
+[Install]
+WantedBy=default.target
+$ sudo systemctl enable mega-cmd.service
+$ sudo systemctl daemon-reload
+```
+
+I guess you could (and probably should) also do it sudo-less, but this is how I did it. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` and it should be fixed. (Before, it would also literally _fill my entire disk_ with logs on those occations; hence the `LogLevelMax=5`.)
+
 ## Software keyboard
 
 This is probably where it makes the most sense to use open source software, since this app literally sees everything you type. Here is also where I ended up sinning, as Swiftkey is simply too damn good for me to switch, and none of the FOSS keyboards were to my satisfaction. But I did try!
