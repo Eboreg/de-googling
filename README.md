@@ -56,13 +56,13 @@ For rooting with Magisk, I basically followed the instructions [on this page](ht
 
 Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
 
-1. Magisk app -> Magisk Install -> Select and Patch a File -> select `recovery.img` from above
+1. Magisk app » Magisk Install » _Select and Patch a File_ » select `recovery.img` from above
 2. Download patched Magisk APK to your computer
-3. Reboot phone to recovery, then: Advanced -> Enable ADB -> Back -> Apply update -> Apply from ADB
+3. Reboot phone to recovery, then: _Advanced_ » _Enable ADB_ » _Back_ » _Apply update_ » _Apply from ADB_
 4. On computer: `adb -d sideload Magisk-[...].apk`
-5. Phone warns: "Signature verification failed"; choose to install anyway
+5. Phone warns: _Signature verification failed_; choose to install anyway
 6. Reboot phone
-7. Magisk app will say that is requires additional setup and reinstallation "within app"; let it do so, and select "Direct Install (Recommended)"
+7. Magisk app will say that is requires additional setup and reinstallation "within app"; let it do so, and select _Direct Install (Recommended)_
 8. Reboot phone again
 
 
@@ -70,10 +70,10 @@ Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
 
 ## The simple stuff
 
-* Gmail -> [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
-* Youtube -> [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
-* Maps -> [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest. Unfortunately, app settings seem to reset after [OS update](#updating-the-os), so make sure to back them all up as soon as you're satisfied with them)
-* Google Authenticator -> [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/)
+* Gmail → [K-9 Mail](https://k9mail.app/) (simple because I really don't use my Gmail address for other than junk, and don't need to sync it on my phone; there probably is a way to do this, but I haven't bothered looking into it)
+* Youtube → [Newpipe](https://newpipe.net/) (with migration of my subscriptions etc via Google Takeout)
+* Maps → [Osmand](https://osmand.net/) (I use the the map source "OsmAnd (online tiles)", which I think looks nicest. Unfortunately, app settings seem to reset after [OS update](#updating-the-os), so make sure to back them all up as soon as you're satisfied with them)
+* Google Authenticator → [AndOTP](https://f-droid.org/en/packages/org.shadowice.flocke.andotp/)
 
 ## Play Store
 
