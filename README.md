@@ -56,9 +56,9 @@ For rooting with Magisk, I basically followed the instructions [on this page](ht
 
 Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
 
-1. Magisk app » Magisk Install » _Select and Patch a File_ » select `recovery.img` from above
+1. Magisk app → Magisk Install → _Select and Patch a File_ → select `recovery.img` from above
 2. Download patched Magisk APK to your computer
-3. Reboot phone to recovery, then: _Advanced_ » _Enable ADB_ » _Back_ » _Apply update_ » _Apply from ADB_
+3. Reboot phone to recovery, then: _Advanced_ → _Enable ADB_ → _Back_ → _Apply update_ → _Apply from ADB_
 4. On computer: `adb -d sideload Magisk-[...].apk`
 5. Phone warns: _Signature verification failed_; choose to install anyway
 6. Reboot phone
@@ -211,4 +211,4 @@ restarting adbd as root
 timeout expired while waiting for device
 ```
 
-Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
+Solution: Go to _Settings_ → _System_ → _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
