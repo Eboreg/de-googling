@@ -79,7 +79,7 @@ Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
 
 First choice for us [RMS](https://stallman.org/) wannabes is of course [F-Droid](https://f-droid.org/).
 
-For non-FOSS apps, I just use the preinstalled *App Lounge* application, where it seems you can access all of Play Store's apps anonymously, including my local Swedish services such as Swish and BankID (which work flawlessly, BTW). There are some annoying graphical bugs still, but basically it works fine.
+For non-FOSS apps, [Aurora Store](https://f-droid.org/en/packages/com.aurora.store/) has worked like a charm for me. It can install all of Google Play Store's apps anonymously, including my local Swedish services such as Swish and BankID (which also work flawlessly, BTW).
 
 ## Calendar
 
@@ -87,11 +87,7 @@ I started out by installing [a basic CalDAV server](https://radicale.org/v3.html
 
 ## Keep
 
-I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but the one I landed on is [Carnet](https://www.getcarnet.app/). It looks like a more beautiful Keep and has all the features I want. Also, I can sync it with the Nextcloud I already installed, as well as import my old Keep items (via Google Takeout again) using [their Nextcloud web app](https://apps.nextcloud.com/apps/carnet). The only major downside is that after clearing and restoring the _Data_ partition, which I do when [updating the OS](#updating-the-os), it tends to throw all my notes in the trash and behaving as a new install, forcing me to manually recover my old notes! But this is a nuisance at most.
-
-### Update 2023-08-06
-
-I wasn't really satisfied with Carnet, so I set about creating my own note/checklist app, called Retain. It is open source, can sync its data via Nextcloud, SFTP, or Dropbox, and is available [here](https://github.com/Eboreg/Retain). Please note that it's in beta. Already works good enough for me, though!
+I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but found none I was satisfied with. So I made my own! It's called Retain and is of course open source, can sync its data via Nextcloud, SFTP, or Dropbox, and is available [here](https://github.com/Eboreg/Retain). It's very much in beta, but works well enough.
 
 ## Drive & Photos
 
@@ -115,9 +111,10 @@ The Openboard versions in the app stores didn't have a Swedish wordlist, though 
 
 I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [OSMC](https://osmc.tv/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/).
 
-### Spotify
 
-In order to run Spotify on this Raspberry Pi, use [Raspotify](https://dtcooper.github.io/raspotify/), which is a thin wrapper over [Librespot](https://github.com/librespot-org/librespot):
+# Replacing Spotify
+
+In order to run Spotify on Raspberry Pi, use [Raspotify](https://dtcooper.github.io/raspotify/), which is a thin wrapper over [Librespot](https://github.com/librespot-org/librespot):
 
 ```shell
 sudo apt install curl apt-transport-https git python
@@ -141,7 +138,7 @@ script
 end script
 ```
 
-Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me (except for [one issue](#raspotify-not-working) that showed up in summer 2022):
+Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me:
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
@@ -215,13 +212,3 @@ timeout expired while waiting for device
 ```
 
 Solution: Go to _Settings_ -> _System_ -> _Developer options_ on the phone, disable _Android debugging_ and immediately re-enable it. `adb -d shell` is now working.
-
-## Raspotify not working
-
-In July 2022, my [Raspotify installation](#chromecast) suddenly refused to play anything; librespot panicked and complained about "channel closed". I found [this issue](https://github.com/librespot-org/librespot/issues/972), which suggested there is some problem with one of Spotify's access points. So I added this to `/etc/hosts` on the Pi:
-
-```
-104.199.65.124  ap-gew4.spotify.com
-```
-
-... then restarted the Raspotify daemon, and it works again.
