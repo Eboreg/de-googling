@@ -66,7 +66,7 @@ Nothing noteworthy here, except Magisk needs to be reinstalled afterwards:
 
 Now, the _Superuser_ and _Modules_ tabs in the Magisk app should be available, meaning you're now updated AND rooted:
 
-![image](https://github.com/user-attachments/assets/6fecb925-5891-417b-9fe7-a9d678cbe85c)
+![image](https://github.com/user-attachments/assets/43c79346-28db-4a3c-a159-4bb337858ba5)
 
 
 # Replacing Google
