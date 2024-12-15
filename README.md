@@ -100,9 +100,9 @@ The downside of Nextcloud is of course that you have to host your files yourself
 
 ### Nerd notes
 
-The only major downside is that there isn't a really efficient and reliable way to mount my Mega files as a local directory. The [Mega CMD](https://mega.nz/cmd) utils include tools to serve your files via WebDAV and FTP, which in turn enables you to mount using [davfs2](https://savannah.nongnu.org/p/davfs2) or [CurlFtpFS](http://curlftpfs.sourceforge.net/), respectively. But the WebDAV solution has been a bit janky for me, sometimes refusing to work because of filenames with some weird characters, and the FTP alternative is in beta and has also been a bit buggy for me.
+The only major downside is that there isn't a really efficient and reliable way to mount my Mega files as a local directory. The [Mega CMD](https://mega.nz/cmd) utils include tools to serve your files via WebDAV and FTP, which in turn enables you to mount using [DAVFS2](https://savannah.nongnu.org/p/davfs2) or [CurlFTPFS](http://curlftpfs.sourceforge.net/), respectively. But the WebDAV solution has been a bit janky for me, sometimes refusing to work because of filenames with some weird characters, and the FTP alternative is in beta and has also been a bit buggy for me.
 
-The Mega SDK source code includes an [example implementation of a FUSE module](https://github.com/meganz/sdk/tree/master/examples/linux), but it's extremely basic and does not implement any caching. This makes transfers way too slow for usages such as video streaming. I have actually been working on my own FUSE module, but as my C++ skills leave a lot to be desired, the future for this project is uncertain.
+The Mega SDK source code includes an [example implementation of a Fuse module](https://github.com/meganz/sdk/tree/master/examples/linux), but it's extremely basic and does not implement any caching. This makes transfers way too slow for usages such as video streaming. I have actually been working on my own FUSE module, but as my C++ skills leave a lot to be desired, the future for this project is uncertain.
 
 The solution I have instead gone for is instead to store my music & video collections on a couple of disks connected to one of my Raspberry Pi's, and set up Mega syncs using their command line tool:
 
