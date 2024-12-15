@@ -44,8 +44,6 @@ Don't have much to add to [the official guide](https://wiki.lineageos.org/device
 10. Run `adb -d sideload lineage-[...].zip`
 11. Reboot! \o/
 
-Keep `recovery.img` somewhere on your phone! It will come in handy at later OS updates, see below.
-
 
 # Rooting
 
