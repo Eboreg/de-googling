@@ -68,6 +68,8 @@ Now, the _Superuser_ and _Modules_ tabs in the Magisk app should be available, m
 
 ![image](https://github.com/user-attachments/assets/43c79346-28db-4a3c-a159-4bb337858ba5)
 
+PS. If you've remapped the Bixby button, you will need to [do this again](#the-bixby-button) after the update.
+
 
 # Replacing Google
 
@@ -129,7 +131,11 @@ $ sudo systemctl enable mega-cmd.service
 $ sudo systemctl daemon-reload
 ```
 
-I guess you could (and probably should) also do it sudo-less, but this is how I did it. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` and it should be fixed. (Before, it would also literally _fill my entire disk_ with logs on those occations; hence the `LogLevelMax=5`.)
+I guess you could (and probably should) also do it sudo-less (i.e. by putting the `.service` file in `~/.config/systemd/user/` instead, skipping all the `sudo`'s and doing every `systemctl` call with `--user`), but this is how I did it. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` (or just `mega-sync` for the sudo-less version) just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` (or `systemctl --user restart mega-cmd` ...) and it should be fixed. (Before, it would also literally _fill my entire disk_ with logs on those occations; hence the `LogLevelMax=5`.)
+
+#### Update 2024-12-15
+
+If you really want to mount Mega directories locally, I guess [Rclone](https://rclone.org/) looks like the best bet. I haven't done any deep dive into it yet, though.
 
 ## Software keyboard
 
@@ -177,12 +183,12 @@ Your Raspberry Pi should now pop up as a device in your Spotify clients. Works l
 
 # The Bixby button
 
-My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the brilliant [BxActions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions), but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
+My phone is one of those equipped with an extra button, originally hardcoded to invoke Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the great [Bxactions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions) app, but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
 
 ```shell
 #!/usr/bin/env bash
 
-# N.B: DON'T USE THIS VERBATIM ON YOUR DEVICE! ONLY FOR INSPIRATION.
+# N.B: THIS SCRIPT IS ONLY FOR INSPIRATION; I TAKE NO RESPONSIBILITY FOR WHAT HAPPENS IF YOU RUN IT VERBATIM ON YOUR DEVICE.
 
 patch_file() {
     local path=$1
@@ -209,7 +215,7 @@ patch_file "/system/usr/keylayout/Generic.kl"
 patch_file "/vendor/usr/keylayout/gpio_keys.kl"
 ```
 
-Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated.
+Basically, it's just re-mapping key 703 (which is the Bixby button) to trigger the `MEDIA_PLAY_PAUSE` action. Nothing complicated. Be sure to keep this script, because you will need to do this again after every [OS update](#updating-the-os).
 
 
 # Non-phone de-googling
