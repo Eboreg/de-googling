@@ -13,7 +13,7 @@ This is an ever evolving document.
 
 I use a Samsung Galaxy S9 (codename `starlte`). My most used Google apps on it were probably Keep, Youtube[*], and Drive. I host my own email since many years back, but I used the Gmail app to access it. I used Google Calendar, albeit with another app as frontend. And yes, I also synced my phone's photos with Google Photos. :-/
 
-When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had _some_ sense. And of course I use ~~Firefox~~ [Librewolf](https://librewolf.net/) for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: ~~Google's image search is admittedly better~~[**], I can't seem to get rid of all those search results in Chinese, and the name "Duckduckgo").
+When backing up my computers, I also used Drive for storage; however, the files I sent were already encrypted by [Duplicati](https://www.duplicati.com/), so at least I had **some** sense. And of course I use ~~Firefox~~ [Librewolf](https://librewolf.net/) for browsing, and [Duckduckgo](https://duckduckgo.com/?q=rick+astley+never+gonna+give+you+up&iax=videos&ia=videos) for searching (only downsides: ~~Google's image search is admittedly better~~[**], I can't seem to get rid of all those search results in Chinese, and the name "Duckduckgo").
 
 [*] No, I will not spell it "YouTube". That is not how names are written.
 
@@ -21,9 +21,9 @@ When backing up my computers, I also used Drive for storage; however, the files 
 
 # Choosing a distribution
 
-For a couple of years, I used the impossibly named LineageOS fork [/e/](https://e.foundation/) (which I will refer to as "E", because that _is_ how names are written), mainly because I wanted to use [MicroG](https://microg.org/) in order to receive push notifications and such stuff, which is not included in [vanilla LineageOS[*]](https://lineageos.org/), and the [LineageOS for MicroG](https://lineage.microg.org/) project didn't have any builds for my phone at that time.
+For a couple of years, I used the impossibly named LineageOS fork [/e/](https://e.foundation/) (which I will refer to as "E", because that **is** how names are written), mainly because I wanted to use [MicroG](https://microg.org/) in order to receive push notifications and such stuff, which is not included in [vanilla LineageOS[*]](https://lineageos.org/), and the [LineageOS for MicroG](https://lineage.microg.org/) project didn't have any builds for my phone at that time.
 
-However, in 2024 I discovered that there _was_ now a _LineageOS for MicroG_ build for my phone. And since I had gotten my entire motherboard changed after dropping my phone into the Arctic ocean (long story), I thought I may as well try it out. And it's been a joy to use! I can't really point out any specific reasons, but it's just generally less of a hassle than with E.
+However, in 2024 I discovered that there **was** now a _LineageOS for MicroG_ build for my phone. And since I had gotten my entire motherboard changed after dropping my phone into the Arctic ocean (long story), I thought I may as well try it out. And it's been a joy to use! I can't really point out any specific reasons, but it's just generally less of a hassle than with E.
 
 [*] I make an exception for names that contain acronyms.
 
@@ -90,7 +90,7 @@ I started out by installing [a basic CalDAV server](https://radicale.org/v3.html
 
 ## Keep
 
-I love lists; nay, I _need_ lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but found none I was satisfied with. So I made my own! It's called Retain and is of course open source, can sync its data via Nextcloud, SFTP, or Dropbox, and is available [here](https://github.com/Eboreg/Retain). It's very much in beta, but works well enough.
+I love lists; nay, I **need** lists. For all kinds of lists and short notes, I have been using Google Keep. I tried out a bunch of open source alternatives, but found none I was satisfied with. So I made my own! It's called Retain and is of course open source, can sync its data via Nextcloud, SFTP, or Dropbox, and is available [here](https://github.com/Eboreg/Retain). It's very much in beta, but works well enough.
 
 ## Drive & Photos
 
@@ -129,7 +129,7 @@ $ sudo systemctl enable mega-cmd.service
 $ sudo systemctl daemon-reload
 ```
 
-The reason I do this stuff as root is because I also back up some directories that can only be read with root privileges. If that was not the case, I would do the whole thing sudo-less instad, i.e. by putting the `.service` file in `~/.config/systemd/user/` instead, skipping all the `sudo`'s, and doing every `systemctl` call with `--user`. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` (or just `mega-sync` for the sudo-less version) just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` (or `systemctl --user restart mega-cmd` ...) and it should be fixed. (Before, it would also literally _fill my entire disk_ with logs on those occations; hence the `LogLevelMax=5`.)
+The reason I do this stuff as root is because I also back up some directories that can only be read with root privileges. If that was not the case, I would do the whole thing sudo-less instad, i.e. by putting the `.service` file in `~/.config/systemd/user/` instead, skipping all the `sudo`'s, and doing every `systemctl` call with `--user`. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` (or just `mega-sync` for the sudo-less version) just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` (or `systemctl --user restart mega-cmd` ...) and it should be fixed. (Before, it would also literally **fill my entire disk** with logs on those occations; hence the `LogLevelMax=5`.)
 
 #### Update 2024-12-15
 
@@ -177,7 +177,7 @@ Your Raspberry Pi should now pop up as a device in your Spotify clients. Works l
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
 
-As for _completely replacing_ Spotify, I have been working on a little thing there too. Unfortunately, the way my brain works is that I tend to lose interest in projects as they near completion. But keep an eye out, I guess (not literally though, that would be disgusting).
+As for **completely replacing** Spotify, I have been working on a little thing there too. Unfortunately, the way my brain works is that I tend to lose interest in projects as they near completion. But keep an eye out, I guess (not literally though, that would be disgusting).
 
 
 # The Bixby button
