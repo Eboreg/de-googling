@@ -242,7 +242,7 @@ adb -d shell
 However, this normally results in this happening for me:
 
 ```shell
-klaatu@jacob:~/e$ adb -d root
+$ adb -d root
 * daemon not running; starting now at tcp:5037
 * daemon started successfully
 restarting adbd as root
