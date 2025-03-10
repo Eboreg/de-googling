@@ -182,12 +182,13 @@ As for **completely replacing** Spotify, I have been working on a little thing t
 
 # The Bixby button
 
-My phone is one of those equipped with an extra button, originally hardcoded to summon Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the great [Bxactions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions) app, but apparently, this requires the Bixby software to be installed, which it's not now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
+My phone is one of those equipped with an extra button, originally hardcoded to summon Samsung's stupid Bixby assistant. I used to reassign it however I wanted (specifically, short press: play/pause media, long press: "do not disturb" on/off, double press: flashlight on/off) with the great [Bxactions](https://apkpure.com/bixbi-button-remapper-bxactions/com.jamworks.bxactions) app, but apparently, this requires the Bixby software to be installed, which it isn't now (nor would I want it to be). I ended up manually re-mapping the button to toggle playing/pausing media, which is what I mostly wanted it to do. Here is a little shell script I wrote to accomplish this:
 
 ```shell
 #!/usr/bin/env bash
 
-# N.B: THIS SCRIPT IS ONLY FOR INSPIRATION; I TAKE NO RESPONSIBILITY FOR WHAT HAPPENS IF YOU RUN IT VERBATIM ON YOUR DEVICE.
+# N.B: THIS SCRIPT IS ONLY FOR INSPIRATION; I TAKE NO RESPONSIBILITY FOR WHAT
+# HAPPENS IF YOU RUN IT VERBATIM ON YOUR DEVICE.
 
 patch_file() {
     local path=$1
