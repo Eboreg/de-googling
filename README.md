@@ -145,10 +145,9 @@ The Openboard versions in the app stores didn't have a Swedish wordlist, though 
 
 ## Chromecast
 
-I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [OSMC](https://osmc.tv/), which allows me to painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/).
+I regularily used my Chromecast device for listening to music and watching video. This is obviously out of the question now, as casting to Chromecast requires proprietary Google services (with the exception of VLC, which somehow manages to do it anyway?!). I replaced it with a Raspberry Pi, on which I installed [OSMC](https://osmc.tv/), which allows me to (more or less) painlessly stream Netflix, Youtube, and local videos with [Kodi](https://kodi.tv/), while at the same time offering the freedom and familiarity of a Debian installation. I control it from my phone using [Kore](https://f-droid.org/en/packages/org.xbmc.kore/). I have also been working on my own remote control app, to fix some of my personal annoyances with Kore, but it's not ready for the public yet.
 
-
-# Replacing Spotify
+### Streaming Spotify
 
 In order to run Spotify on Raspberry Pi, use [Raspotify](https://dtcooper.github.io/raspotify/), which is a thin wrapper over [Librespot](https://github.com/librespot-org/librespot):
 
@@ -177,6 +176,8 @@ end script
 Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me:
 
 ![image](https://user-images.githubusercontent.com/1786886/156905263-df935a4c-4f17-4439-a27c-d2dcaca02fcc.png)
+
+As for _completely replacing_ Spotify, I have been working on a little thing there too. Unfortunately, the way my brain works is that I tend to lose interest in projects as they near completion. But keep an eye out, I guess (not literally though, that would be disgusting).
 
 
 # The Bixby button
@@ -235,7 +236,7 @@ adb -d root
 adb -d shell
 ```
 
-(I add the `-d` to make it work on the USB connected device, as I also have an emulated phone created in Android Studio.)
+(I add the `-d` to make it work on the USB connected device, as I also tend to run some phone emulators.)
 
 However, this normally results in this happening for me:
 
