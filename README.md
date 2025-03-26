@@ -120,8 +120,10 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/mega-cmd-server
-Restart=always
-LogLevelMax=5
+Restart=on-failure
+LogLevelMax=crit
+# Exit code 254 = "Another instance of MEGAcmd Server is running"; don't restart in this case:
+SuccessExitStatus=254
 
 [Install]
 WantedBy=default.target
@@ -129,7 +131,7 @@ $ sudo systemctl enable mega-cmd.service
 $ sudo systemctl daemon-reload
 ```
 
-The reason I do this stuff as root is because I also back up some directories that can only be read with root privileges. If that was not the case, I would do the whole thing sudo-less instad, i.e. by putting the `.service` file in `~/.config/systemd/user/` instead, skipping all the `sudo`'s, and doing every `systemctl` call with `--user`. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` (or just `mega-sync` for the sudo-less version) just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` (or `systemctl --user restart mega-cmd` ...) and it should be fixed. (Before, it would also literally **fill my entire disk** with logs on those occations; hence the `LogLevelMax=5`.)
+The reason I do this stuff as root is because I also back up some directories that can only be read with root privileges. If that was not the case, I would do the whole thing sudo-less instad, i.e. by putting the `.service` file in `~/.config/systemd/user/` instead, skipping all the `sudo`'s, and doing every `systemctl` call with `--user`. It works quite fine, but you may want to pop in every now and then and run `sudo mega-sync` (or just `mega-sync` for the sudo-less version) just to check so everything is running. And if `mega-cmd-server` is hogging all the CPU, which unfortunately happens sometimes, just run `sudo systemctl restart mega-cmd` (or `systemctl --user restart mega-cmd` ...) and it should be fixed. (Before, it would also literally **fill my entire disk** with logs on those occations; hence the `LogLevelMax=crit`. Although the proper thing to do would probably be to fuck around with `LogRateLimitIntervalSec` and `LogRateLimitBurst` ([reference](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html)).)
 
 #### Update 2024-12-15
 
