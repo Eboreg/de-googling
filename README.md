@@ -158,21 +158,11 @@ sudo apt install curl apt-transport-https git python
 curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
 ```
 
-Now edit `/etc/raspotify/conf` with your account credentials and other settings to your liking. Then, to make librespot run as a daemon on startup, copy this to `/etc/init/raspotify.conf`:
+Now edit `/etc/raspotify/conf` with your account credentials and other settings to your liking. And just to make sure the Systemd service is enabled and running:
 
-```
-description "Daemonized librespot"
-
-start on net-device-up
-stop on runlevel [!2345]
-
-respawn
-
-script
-	set -a
-	. /etc/raspotify/conf
-	exec /usr/bin/librespot
-end script
+```shell
+sudo systemctl enable raspotify.service
+sudo systemctl start raspotify.service
 ```
 
 Your Raspberry Pi should now pop up as a device in your Spotify clients. Works like a charm for me:
